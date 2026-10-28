@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MediFind — Advanced Medical Inventory & FEFO Management</title>
+  <title>MediFind — Pharmacy Management & FEFO Suite</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -12,8 +12,8 @@
 </head>
 <body>
   <div id="app" class="app-layout">
-    <!-- Sidebar Navigation -->
-    <aside class="sidebar">
+    <!-- Sidebar Navigation (Grouped, Navy & Teal) -->
+    <aside class="sidebar" id="appSidebar">
       <div class="sidebar-brand">
         <div class="brand-icon">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -23,64 +23,124 @@
         </div>
         <div class="brand-text">
           <h2>MediFind</h2>
-          <span>Clinical & FEFO Suite</span>
+          <span>Pharmacy & FEFO Suite</span>
         </div>
       </div>
 
-      <div class="user-profile-badge" id="sidebarUserProfile">
+      <!-- User Profile Header in Sidebar -->
+      <div class="user-profile-badge" id="sidebarUserProfile" title="Click to view My Profile">
         <div class="avatar" id="userAvatar">A</div>
         <div class="user-meta">
           <strong id="userName">Administrator</strong>
-          <span class="role-pill admin" id="userRoleBadge">ADMIN</span>
+          <span class="role-pill admin" id="userRoleBadge">ADMINISTRATOR</span>
         </div>
       </div>
 
-      <nav class="sidebar-nav">
-        <button class="nav-item active" data-tab="dashboard">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
-          <span>Dashboard</span>
-        </button>
-        <button class="nav-item" data-tab="inventory">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
-          <span>Medicine Catalog</span>
-        </button>
-        <button class="nav-item" data-tab="batches">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
-          <span>Batch & Expiry (FEFO)</span>
-        </button>
-        <button class="nav-item" data-tab="pos">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
-          <span>Dispense / POS</span>
-        </button>
-        <button class="nav-item" data-tab="orders">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-          <span>Suppliers & POs</span>
-        </button>
-        <button class="nav-item" data-tab="restock">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>
-          <span>Restock Pipeline</span>
-        </button>
-        <button class="nav-item" data-tab="dsa">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><circle cx="6" cy="19" r="3"/><circle cx="18" cy="19" r="3"/><path d="M9 17l2-9"/><path d="M15 17l-2-9"/></svg>
-          <span>DSA Diagnostics</span>
-        </button>
-        <button class="nav-item" data-tab="audit">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>Audit & Ledger</span>
-        </button>
-        <button class="nav-item" data-tab="reports">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-          <span>Analytics & Exports</span>
-        </button>
+      <!-- Grouped Navigation -->
+      <nav class="sidebar-nav" id="sidebarNav">
+        <!-- 1. OVERVIEW GROUP -->
+        <div class="nav-group" data-nav-group="overview">
+          <div class="nav-group-title">Overview</div>
+          <button class="nav-item active" data-tab="dashboard">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+            <span>Dashboard</span>
+          </button>
+          <button class="nav-item" data-tab="notifications">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span>Notifications</span>
+            <span class="nav-badge" id="sidebarNotifBadge">2</span>
+          </button>
+        </div>
+
+        <!-- 2. INVENTORY GROUP -->
+        <div class="nav-group" data-nav-group="inventory">
+          <div class="nav-group-title">Inventory</div>
+          <button class="nav-item" data-tab="inventory">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+            <span>Medicine Inventory</span>
+          </button>
+          <button class="nav-item" data-tab="batches">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+            <span>Batch & FEFO Expiry</span>
+          </button>
+          <button class="nav-item" data-tab="movements" data-role-req="ADMINISTRATOR">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+            <span>Stock Movements</span>
+          </button>
+        </div>
+
+        <!-- 3. OPERATIONS GROUP -->
+        <div class="nav-group" data-nav-group="operations">
+          <div class="nav-group-title">Operations</div>
+          <button class="nav-item" data-tab="pos">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+            <span>Record Sale (POS)</span>
+          </button>
+          <button class="nav-item" data-tab="receiving">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Stock Receiving</span>
+          </button>
+          <button class="nav-item" data-tab="adjustments">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            <span>Stock Adjustments</span>
+            <span class="nav-badge teal" id="badgePendingAdjustments" style="display:none;">0</span>
+          </button>
+          <button class="nav-item" data-tab="restock">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>
+            <span>Restock Requests</span>
+          </button>
+          <button class="nav-item" data-tab="orders" data-role-req="ADMINISTRATOR">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <span>Suppliers & POs</span>
+          </button>
+          <button class="nav-item" data-tab="my-transactions" data-role-req="EMPLOYEE">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>My Shift Transactions</span>
+          </button>
+        </div>
+
+        <!-- 4. INSIGHTS GROUP -->
+        <div class="nav-group" data-nav-group="insights" data-role-req="ADMINISTRATOR">
+          <div class="nav-group-title">Insights</div>
+          <button class="nav-item" data-tab="sales-customers">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span>Sales & Customers</span>
+          </button>
+          <button class="nav-item" data-tab="reports">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <span>Reports & Valuation</span>
+          </button>
+        </div>
+
+        <!-- 5. ADMINISTRATION GROUP -->
+        <div class="nav-group" data-nav-group="administration">
+          <div class="nav-group-title">Administration</div>
+          <button class="nav-item" data-tab="audit" data-role-req="ADMINISTRATOR">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Audit Logs</span>
+          </button>
+          <button class="nav-item" data-tab="users" data-role-req="ADMINISTRATOR">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+            <span>User Management</span>
+          </button>
+          <button class="nav-item" data-tab="settings" data-role-req="ADMINISTRATOR">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <span>Settings</span>
+          </button>
+          <button class="nav-item" data-tab="profile">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>My Profile</span>
+          </button>
+        </div>
       </nav>
 
       <div class="sidebar-footer">
         <div class="system-status">
           <span class="status-indicator online"></span>
-          <span>Engine: C++17 / SQLite</span>
+          <span>Engine: C++17 SQLite3 FEFO</span>
         </div>
         <button class="btn-logout" id="btnLogout">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
           Switch Role / Logout
         </button>
       </div>
@@ -91,40 +151,56 @@
       <!-- Top Action Bar -->
       <header class="top-header">
         <div class="header-left">
-          <h1 id="pageTitle">Executive Operations Dashboard</h1>
-          <p id="pageSubtitle">Real-time pharmacy asset valuations, FEFO queues, and alert telemetry</p>
-        </div>
-        <div class="header-right">
-          <button class="btn btn-outline" id="btnToggleTheme" title="Toggle Light / Dark Mode">
-            <span id="themeIcon">🌙</span>
+          <button class="btn-sidebar-toggle icon-btn" id="btnToggleSidebar" aria-label="Toggle Navigation">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
           </button>
+          <div>
+            <h1 id="pageTitle">Operations Dashboard</h1>
+            <p id="pageSubtitle">Real-time pharmacy inventory telemetry and FEFO automated allocation</p>
+          </div>
+        </div>
+
+        <div class="header-right">
           <div class="quick-stat-pill">
             <span class="pulse-dot"></span>
             <span id="fefoPolicyPill">FEFO Engine: Active</span>
           </div>
-          <button class="btn btn-secondary" id="btnExportQuick">
-            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Export CSV
+
+          <!-- Notification Bell -->
+          <button class="icon-btn" id="btnOpenNotifDrawer" title="Notifications">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="notif-badge" id="topNotifBadge">2</span>
           </button>
+
+          <!-- Light/Dark Toggle -->
+          <button class="icon-btn" id="btnToggleTheme" title="Toggle Theme">
+            <span id="themeIcon">🌙</span>
+          </button>
+
+          <!-- Quick Sale Shortcut -->
           <button class="btn btn-primary" id="btnOpenNewSale">
             <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            New Dispense (POS)
+            Record Sale (POS)
           </button>
         </div>
       </header>
 
-      <!-- Tab Content Panels -->
+      <!-- Tab Viewport Container -->
       <div class="tab-viewport">
-        <!-- 1. DASHBOARD TAB -->
+
+        <!-- ===================================================================
+             1. ROLE-BASED DASHBOARD TAB
+             =================================================================== -->
         <section class="tab-panel active" id="tab-dashboard">
-          <div class="kpi-grid">
-            <div class="kpi-card accent-blue">
+          <!-- Administrator Executive KPI Grid -->
+          <div class="kpi-grid" id="adminKpiGrid">
+            <div class="kpi-card accent-teal">
               <div class="kpi-header">
                 <span>Active Medicines</span>
-                <span class="kpi-badge">+100% Verified</span>
+                <span class="kpi-badge">Catalog</span>
               </div>
               <div class="kpi-value" id="kpiMeds">10</div>
-              <div class="kpi-sub">Across 8 pharmaceutical classes</div>
+              <div class="kpi-sub">Across active therapeutic categories</div>
             </div>
 
             <div class="kpi-card accent-cyan">
@@ -139,22 +215,22 @@
             <div class="kpi-card accent-emerald">
               <div class="kpi-header">
                 <span>Total Units in Stock</span>
-                <span class="kpi-badge">Real-Time</span>
+                <span class="kpi-badge">Authoritative</span>
               </div>
               <div class="kpi-value" id="kpiUnits">1,480</div>
-              <div class="kpi-sub">Physical shelf units verified</div>
+              <div class="kpi-sub">Physical shelf inventory</div>
             </div>
 
             <div class="kpi-card accent-indigo">
               <div class="kpi-header">
                 <span>Asset Purchase Cost</span>
-                <span class="kpi-badge">Valuation</span>
+                <span class="kpi-badge">Book Valuation</span>
               </div>
               <div class="kpi-value" id="kpiCost">$9,165.00</div>
-              <div class="kpi-sub">Authoritative book value (SQLite)</div>
+              <div class="kpi-sub">Calculated via SQLite ledger</div>
             </div>
 
-            <div class="kpi-card accent-teal">
+            <div class="kpi-card accent-navy">
               <div class="kpi-header">
                 <span>Projected Retail Value</span>
                 <span class="kpi-badge">Turnover</span>
@@ -173,10 +249,25 @@
             </div>
           </div>
 
-          <!-- Section: Alerts banner if any -->
+          <!-- Employee Shift Operations Banner (Visible only for Employee) -->
+          <div class="card" id="employeeShiftBanner" style="display:none; background: linear-gradient(135deg, #0f172a, #134e4a); color: white; border: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+              <div>
+                <h3 style="color: #2dd4bf; font-size: 16px; margin-bottom: 4px;">Staff Shift Dashboard</h3>
+                <p style="color: #cbd5e1; font-size: 13px;">Logged in as Pharmacy Staff. Ready for dispensing, stock lookup, and floor restock requests.</p>
+              </div>
+              <div style="display: flex; gap: 10px;">
+                <button class="btn btn-primary" onclick="window.mediApp.switchTab('pos')">Open POS Register</button>
+                <button class="btn btn-secondary" onclick="window.mediApp.switchTab('receiving')">Receive Inbound Stock</button>
+                <button class="btn btn-outline" style="color: white; border-color: rgba(255,255,255,0.2);" onclick="window.mediApp.switchTab('adjustments')">Request Stock Adjustment</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Urgent Alerts Container -->
           <div class="alert-banner-container" id="dashboardAlertContainer"></div>
 
-          <!-- Real-Time Analytics Charts -->
+          <!-- Analytics Split -->
           <div class="dashboard-split">
             <div class="card flex-1">
               <div class="card-header">
@@ -187,10 +278,11 @@
                 <canvas id="chartCategory"></canvas>
               </div>
             </div>
+
             <div class="card flex-1">
               <div class="card-header">
                 <h3>Expiry Risk Timeline & Critical Batches</h3>
-                <span class="badge badge-warning">FEFO Shelf Life Radar</span>
+                <span class="badge badge-warning">FEFO Radar</span>
               </div>
               <div style="height: 240px; position: relative;">
                 <canvas id="chartExpiryTimeline"></canvas>
@@ -198,69 +290,30 @@
             </div>
           </div>
 
-          <!-- Quick Charts / Overview Split -->
-          <div class="dashboard-split">
-            <div class="card flex-2">
-              <div class="card-header">
-                <h3>FEFO Priority Dispatch Queue (Next Expiring Batches)</h3>
-                <span class="badge badge-info">Algorithm: Earliest Expiry First</span>
-              </div>
-              <div class="table-container">
-                <table class="data-table" id="tblFefoPreview">
-                  <thead>
-                    <tr>
-                      <th>Medicine</th>
-                      <th>Batch Number</th>
-                      <th>Expiry Date</th>
-                      <th>Days Left</th>
-                      <th>Units</th>
-                      <th>Unit Cost</th>
-                      <th>FEFO Status</th>
-                    </tr>
-                  </thead>
-                  <tbody></tbody>
-                </table>
-              </div>
+          <!-- FEFO Queue Table & Recent Movements -->
+          <div class="card">
+            <div class="card-header">
+              <h3>FEFO Priority Dispatch Queue (Next Expiring Batches)</h3>
+              <span class="badge badge-info">Algorithm: Earliest Expiry First</span>
             </div>
-
-            <div class="card flex-1">
-              <div class="card-header">
-                <h3>DSA Architecture Overview</h3>
-              </div>
-              <div class="dsa-mini-list">
-                <div class="dsa-item">
-                  <div class="dsa-icon">#</div>
-                  <div>
-                    <strong>Hash Table (Separate Chaining)</strong>
-                    <p>O(1) Avg lookup for medicine ID cache & stock checks</p>
-                  </div>
-                </div>
-                <div class="dsa-item">
-                  <div class="dsa-icon">🌲</div>
-                  <div>
-                    <strong>Binary Search Tree</strong>
-                    <p>In-order prefix search for instant medicine autocomplete</p>
-                  </div>
-                </div>
-                <div class="dsa-item">
-                  <div class="dsa-icon">⏳</div>
-                  <div>
-                    <strong>FEFO Priority Engine</strong>
-                    <p>Deterministic date-sorted queue ensuring minimum expiry wastage</p>
-                  </div>
-                </div>
-                <div class="dsa-item">
-                  <div class="dsa-icon">⇄</div>
-                  <div>
-                    <strong>FIFO Request Queue</strong>
-                    <p>Orderly approval chain for floor restock submissions</p>
-                  </div>
-                </div>
-              </div>
+            <div class="table-container">
+              <table class="data-table" id="tblFefoPreview">
+                <thead>
+                  <tr>
+                    <th>Medicine</th>
+                    <th>Batch Number</th>
+                    <th>Expiry Date</th>
+                    <th>Days Left</th>
+                    <th>Units Available</th>
+                    <th>Unit Cost</th>
+                    <th>FEFO Status</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
             </div>
           </div>
 
-          <!-- Recent Movements -->
           <div class="card">
             <div class="card-header">
               <h3>Recent Stock Movements & Audit Trail</h3>
@@ -285,17 +338,21 @@
           </div>
         </section>
 
-        <!-- 2. MEDICINE INVENTORY TAB -->
+        <!-- ===================================================================
+             2. MEDICINE INVENTORY TAB
+             =================================================================== -->
         <section class="tab-panel" id="tab-inventory">
           <div class="toolbar">
-            <div class="search-box">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-              <input type="text" id="searchMedicine" placeholder="Search medicine by name, brand, or barcode...">
+            <div class="toolbar-left">
+              <div class="search-box">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="searchMedicine" placeholder="Search by name, brand, or barcode (e.g. MED-890123)...">
+              </div>
+              <select id="filterCategory" class="form-select" style="max-width: 200px;">
+                <option value="">All Categories</option>
+              </select>
             </div>
-            <select id="filterCategory" class="form-select">
-              <option value="">All Categories</option>
-            </select>
-            <button class="btn btn-primary" id="btnOpenAddMed">
+            <button class="btn btn-primary" id="btnOpenAddMed" data-role-req="ADMINISTRATOR">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
               Add New Medicine
             </button>
@@ -310,7 +367,7 @@
                     <th>Medicine Name</th>
                     <th>Brand</th>
                     <th>Strength</th>
-                    <th>Form</th>
+                    <th>Dosage Form</th>
                     <th>Category</th>
                     <th>Barcode</th>
                     <th>Total Stock</th>
@@ -324,23 +381,27 @@
           </div>
         </section>
 
-        <!-- 3. BATCH & FEFO EXPIRY TAB -->
+        <!-- ===================================================================
+             3. BATCH & FEFO EXPIRY TAB
+             =================================================================== -->
         <section class="tab-panel" id="tab-batches">
           <div class="toolbar">
-            <div class="search-box">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-              <input type="text" id="searchBatch" placeholder="Filter batch number or medicine...">
+            <div class="toolbar-left">
+              <div class="search-box">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="searchBatch" placeholder="Filter batch number or medicine...">
+              </div>
+              <select id="filterBatchStatus" class="form-select" style="max-width: 220px;">
+                <option value="">All Statuses</option>
+                <option value="AVAILABLE">Available</option>
+                <option value="NEAR_EXPIRY">Near Expiry (&le; 90 days)</option>
+                <option value="EXPIRED">Expired (Quarantined)</option>
+                <option value="DEPLETED">Depleted (0 units)</option>
+              </select>
             </div>
-            <select id="filterBatchStatus" class="form-select">
-              <option value="">All Statuses</option>
-              <option value="AVAILABLE">Available</option>
-              <option value="NEAR_EXPIRY">Near Expiry (&le; 90 days)</option>
-              <option value="EXPIRED">Expired (Quarantined)</option>
-              <option value="DEPLETED">Depleted (0 units)</option>
-            </select>
-            <button class="btn btn-primary" id="btnOpenStockIn">
+            <button class="btn btn-primary" id="btnOpenStockIn" data-role-req="ADMINISTRATOR">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Stock-In New Batch
+              Direct Stock-In Batch
             </button>
           </div>
 
@@ -367,14 +428,60 @@
           </div>
         </section>
 
-        <!-- 4. POINT OF SALE (POS) & FEFO DISPENSE -->
+        <!-- ===================================================================
+             4. STOCK MOVEMENTS TAB (ADMIN)
+             =================================================================== -->
+        <section class="tab-panel" id="tab-movements">
+          <div class="toolbar">
+            <div class="toolbar-left">
+              <div class="search-box">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="searchMovements" placeholder="Search movements by medicine, type or reference...">
+              </div>
+            </div>
+            <button class="btn btn-secondary" id="btnExportMovementsCsv">Export Movements CSV</button>
+          </div>
+
+          <div class="card">
+            <div class="table-container">
+              <table class="data-table" id="tblFullMovements">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Timestamp</th>
+                    <th>Movement Type</th>
+                    <th>Medicine</th>
+                    <th>Batch</th>
+                    <th>Quantity</th>
+                    <th>Balance After</th>
+                    <th>Reference / Reason</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             5. POINT OF SALE (POS) & GST BILLING
+             =================================================================== -->
         <section class="tab-panel" id="tab-pos">
           <div class="pos-layout">
             <!-- Left: Catalog & Cart Builder -->
             <div class="pos-builder card">
               <div class="card-header">
                 <h3>Select Medicine to Dispense</h3>
-                <span class="badge badge-success">Live FEFO Allocator</span>
+                <span class="badge badge-success">FEFO Auto-Allocator</span>
+              </div>
+
+              <!-- Barcode Quick Scan Input -->
+              <div class="form-group">
+                <label>Barcode Scanner Input</label>
+                <div style="display:flex; gap:6px;">
+                  <input type="text" id="posBarcodeScan" placeholder="Scan or type barcode (e.g. MED-890123)..." class="form-input">
+                  <button class="btn btn-outline" id="btnPosBarcodeLookup" type="button">Lookup</button>
+                </div>
               </div>
 
               <div class="form-group">
@@ -389,13 +496,13 @@
                 </div>
                 <div class="form-group flex-1">
                   <label>Available in Stock</label>
-                  <input type="text" id="posAvailableStock" readonly value="--" class="form-input bg-muted">
+                  <input type="text" id="posAvailableStock" readonly value="--" class="form-input" style="background:#f1f5f9; font-weight:700;">
                 </div>
               </div>
 
               <button class="btn btn-primary w-full" id="btnPosAddToCart">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-                Add to Cart (FEFO Preview)
+                Add to Cart (FEFO Allocation)
               </button>
 
               <div class="fefo-preview-box" id="posFefoPreviewBox">
@@ -404,14 +511,14 @@
               </div>
             </div>
 
-            <!-- Right: Cart & Billing -->
+            <!-- Right: Cart & GST Checkout -->
             <div class="pos-cart card">
               <div class="card-header">
                 <h3>Customer Dispensing Order</h3>
                 <button class="btn btn-sm btn-outline text-danger" id="btnPosClearCart">Clear Cart</button>
               </div>
 
-              <div class="table-container pos-table-wrap">
+              <div class="table-container pos-table-wrap" style="max-height: 280px;">
                 <table class="data-table" id="tblPosCart">
                   <thead>
                     <tr>
@@ -429,43 +536,194 @@
               </div>
 
               <div class="pos-checkout-section">
-                <div class="form-row">
+                <div class="form-row" style="margin-top: 14px;">
                   <div class="form-group flex-2">
-                    <label>Patient / Customer Name</label>
-                    <input type="text" id="posCustomerName" placeholder="Walk-in Customer" class="form-input">
+                    <label>Patient / Customer Name *</label>
+                    <input type="text" id="posCustomerName" placeholder="e.g. John Doe / Walk-in" class="form-input" value="Walk-in Customer">
+                  </div>
+                  <div class="form-group flex-2">
+                    <label>Contact Phone</label>
+                    <input type="text" id="posCustomerPhone" placeholder="+91 98765 43210" class="form-input">
                   </div>
                   <div class="form-group flex-1">
                     <label>Payment Method</label>
                     <select id="posPaymentMethod" class="form-select">
                       <option value="CASH">Cash</option>
-                      <option value="CARD">Debit / Credit Card</option>
+                      <option value="CARD">Credit/Debit Card</option>
                       <option value="UPI">UPI / Digital</option>
                       <option value="INSURANCE">Insurance Claim</option>
                     </select>
                   </div>
                 </div>
 
-                <div class="pos-summary">
-                  <div class="summary-line">
-                    <span>Subtotal:</span>
-                    <strong id="posSubtotal">$0.00</strong>
+                <div class="form-row">
+                  <div class="form-group flex-1">
+                    <label>Doctor / Prescription Reference</label>
+                    <input type="text" id="posDoctorRef" placeholder="e.g. Dr. A. Sharma (Reg #4429)" class="form-input">
                   </div>
-                  <div class="summary-line total-line">
-                    <span>Grand Total:</span>
-                    <strong id="posGrandTotal" class="text-success">$0.00</strong>
+                  <div class="form-group flex-1">
+                    <label>Applicable GST Rate</label>
+                    <select id="posGstRate" class="form-select">
+                      <option value="12">12% GST (6% CGST + 6% SGST)</option>
+                      <option value="18">18% GST (9% CGST + 9% SGST)</option>
+                      <option value="5">5% GST (2.5% CGST + 2.5% SGST)</option>
+                      <option value="0">0% (Tax Exempt)</option>
+                    </select>
                   </div>
                 </div>
 
-                <button class="btn btn-success btn-lg w-full" id="btnPosCheckout">
+                <div class="pos-summary">
+                  <div class="summary-line">
+                    <span>Taxable Subtotal:</span>
+                    <strong id="posSubtotal">$0.00</strong>
+                  </div>
+                  <div class="summary-line">
+                    <span id="posCgstLabel">CGST (6%):</span>
+                    <strong id="posCgstAmount">$0.00</strong>
+                  </div>
+                  <div class="summary-line">
+                    <span id="posSgstLabel">SGST (6%):</span>
+                    <strong id="posSgstAmount">$0.00</strong>
+                  </div>
+                  <div class="summary-line total-line">
+                    <span>Grand Total Payable:</span>
+                    <strong id="posGrandTotal" style="color: var(--primary); font-size: 18px;">$0.00</strong>
+                  </div>
+                </div>
+
+                <button class="btn btn-primary btn-lg w-full" id="btnPosCheckout">
                   <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                  Confirm Sale & Deduct FEFO Batches
+                  Confirm Sale & Generate GST Tax Invoice
                 </button>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- 5. SUPPLIERS & ORDERS TAB -->
+        <!-- ===================================================================
+             6. STOCK RECEIVING TAB (AGAINST PO)
+             =================================================================== -->
+        <section class="tab-panel" id="tab-receiving">
+          <div class="card">
+            <div class="card-header">
+              <h3>Authorized Inbound Stock Receiving</h3>
+              <span class="badge badge-primary">Verification Station</span>
+            </div>
+            <p class="text-muted" style="margin-bottom: 16px;">Receive physical deliveries matching authorized Purchase Orders. Enter inspected batch numbers, manufacturing dates, and verified expiry dates to record into inventory.</p>
+
+            <div class="form-row">
+              <div class="form-group flex-2">
+                <label>Select Approved Purchase Order *</label>
+                <select id="receivingPoSelect" class="form-select"></select>
+              </div>
+              <div class="form-group flex-1">
+                <label>Delivery Invoice / Challan #</label>
+                <input type="text" id="receivingChallanNo" placeholder="e.g. INV-99421" class="form-input">
+              </div>
+            </div>
+
+            <div id="receivingItemsContainer" style="margin-top: 14px;">
+              <div class="table-container">
+                <table class="data-table" id="tblReceivingItems">
+                  <thead>
+                    <tr>
+                      <th>Medicine</th>
+                      <th>Ordered Qty</th>
+                      <th>Receiving Qty</th>
+                      <th>Batch Number</th>
+                      <th>Mfg Date</th>
+                      <th>Expiry Date</th>
+                      <th>Cost ($)</th>
+                      <th>Retail ($)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td colspan="8" class="text-muted text-center">Select an approved Purchase Order above to load items.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div style="margin-top: 16px; display: flex; justify-content: flex-end;">
+              <button class="btn btn-primary" id="btnSubmitReceiving">Complete Stock Receipt & Create Batches</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             7. STOCK ADJUSTMENT REQUESTS & APPROVAL TAB
+             =================================================================== -->
+        <section class="tab-panel" id="tab-adjustments">
+          <div class="toolbar">
+            <button class="btn btn-primary" id="btnOpenAdjustmentRequest">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Submit Stock Adjustment Request
+            </button>
+            <span class="badge badge-info" id="adjustmentRoleNotice">Admin approval is strictly required before stock counts are altered.</span>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3>Stock Adjustment Approval Pipeline</h3>
+              <span class="badge badge-warning" id="adjustmentPendingCount">Pending Reviews: 0</span>
+            </div>
+            <div class="table-container">
+              <table class="data-table" id="tblAdjustmentRequests">
+                <thead>
+                  <tr>
+                    <th>Req #</th>
+                    <th>Medicine</th>
+                    <th>Batch #</th>
+                    <th>Current Qty</th>
+                    <th>Proposed Qty</th>
+                    <th>Difference</th>
+                    <th>Submitted By</th>
+                    <th>Mandatory Reason</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             8. RESTOCK PIPELINE TAB
+             =================================================================== -->
+        <section class="tab-panel" id="tab-restock">
+          <div class="toolbar">
+            <button class="btn btn-primary" id="btnOpenSubmitRestock">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Submit Restock Request
+            </button>
+            <span class="badge badge-info">Employees submit restock requests; Administrators approve or fulfill.</span>
+          </div>
+
+          <div class="card">
+            <div class="table-container">
+              <table class="data-table" id="tblRestock">
+                <thead>
+                  <tr>
+                    <th>Ref ID</th>
+                    <th>Medicine</th>
+                    <th>Requested Qty</th>
+                    <th>Submitted By</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             9. SUPPLIERS & PURCHASE ORDERS TAB (ADMIN)
+             =================================================================== -->
         <section class="tab-panel" id="tab-orders">
           <div class="toolbar">
             <button class="btn btn-primary" id="btnOpenAddSupplier">Add Supplier</button>
@@ -495,7 +753,7 @@
 
             <div class="card flex-1">
               <div class="card-header">
-                <h3>Purchase Orders & Inbound Receipts</h3>
+                <h3>Purchase Orders & Approvals</h3>
               </div>
               <div class="table-container">
                 <table class="data-table" id="tblOrders">
@@ -516,25 +774,37 @@
           </div>
         </section>
 
-        <!-- 6. RESTOCK PIPELINE TAB -->
-        <section class="tab-panel" id="tab-restock">
+        <!-- ===================================================================
+             10. SALES & CUSTOMERS TAB (ADMIN)
+             =================================================================== -->
+        <section class="tab-panel" id="tab-sales-customers">
           <div class="toolbar">
-            <button class="btn btn-primary" id="btnOpenSubmitRestock">Submit Restock Request</button>
-            <span class="info-pill">Employees can request restocks; Administrators review & approve</span>
+            <div class="search-box">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="searchSalesCustomers" placeholder="Search customer name, phone, or invoice ref...">
+            </div>
+            <button class="btn btn-secondary" id="btnExportSalesCsv">Export Sales CSV</button>
           </div>
 
           <div class="card">
+            <div class="card-header">
+              <h3>Dispensing Transactions & Invoices</h3>
+            </div>
             <div class="table-container">
-              <table class="data-table" id="tblRestock">
+              <table class="data-table" id="tblSalesLedger">
                 <thead>
                   <tr>
-                    <th>Ref ID</th>
-                    <th>Medicine</th>
-                    <th>Requested Qty</th>
-                    <th>Submitted By</th>
-                    <th>Reason</th>
-                    <th>Status</th>
-                    <th>Actions</th>
+                    <th>Invoice #</th>
+                    <th>Date & Time</th>
+                    <th>Customer Name</th>
+                    <th>Phone</th>
+                    <th>Items</th>
+                    <th>Payment</th>
+                    <th>Subtotal</th>
+                    <th>GST</th>
+                    <th>Grand Total</th>
+                    <th>Dispensed By</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody></tbody>
@@ -543,53 +813,81 @@
           </div>
         </section>
 
-        <!-- 7. DSA DIAGNOSTICS TAB -->
-        <section class="tab-panel" id="tab-dsa">
-          <div class="dsa-dashboard">
-            <div class="card">
-              <div class="card-header">
-                <h3>Data Structures & Algorithms in Action</h3>
-                <span class="badge badge-primary">Interactive Demonstrator</span>
-              </div>
-              <p class="text-muted">Explore how MediFind employs custom DSA components for O(1) cache lookups, O(log N) prefix searches, and deterministic FEFO stock allocations.</p>
-
-              <div class="dsa-grid-interactive">
-                <!-- 1. Hash Table Simulator -->
-                <div class="dsa-card">
-                  <h4>1. Medicine ID Hash Table (Separate Chaining)</h4>
-                  <p class="text-muted">Simulates <code>HashTable&lt;int, Medicine&gt;</code> bucket index distribution (capacity: 16 buckets).</p>
-                  <div class="hash-table-vis" id="hashTableVis"></div>
-                </div>
-
-                <!-- 2. BST Prefix Search -->
-                <div class="dsa-card">
-                  <h4>2. Binary Search Tree (Prefix Autocomplete)</h4>
-                  <p class="text-muted">Type a prefix to simulate <code>BST::findByPrefix()</code> alphabetical traversal.</p>
-                  <div class="form-group">
-                    <input type="text" id="bstPrefixInput" placeholder="Try 'P', 'A', 'M', or 'I'..." class="form-input">
-                  </div>
-                  <div class="bst-results" id="bstResults"></div>
-                </div>
-
-                <!-- 3. FEFO Queue Allocator -->
-                <div class="dsa-card">
-                  <h4>3. FEFO Deterministic Allocation Queue</h4>
-                  <p class="text-muted">Visualizes the sorted multi-batch depletion process (earliest expiration consumed first).</p>
-                  <div class="fefo-queue-vis" id="fefoQueueVis"></div>
-                </div>
-              </div>
+        <!-- ===================================================================
+             11. MY SHIFT TRANSACTIONS (EMPLOYEE)
+             =================================================================== -->
+        <section class="tab-panel" id="tab-my-transactions">
+          <div class="card">
+            <div class="card-header">
+              <h3>My Shift Transactions</h3>
+              <span class="badge badge-primary">Personal Shift Ledger</span>
+            </div>
+            <p class="text-muted" style="margin-bottom: 16px;">Record of all dispensings and stock transactions processed by your account during the active session.</p>
+            <div class="table-container">
+              <table class="data-table" id="tblMyTransactions">
+                <thead>
+                  <tr>
+                    <th>Invoice / Ref #</th>
+                    <th>Time</th>
+                    <th>Customer</th>
+                    <th>Units</th>
+                    <th>Payment</th>
+                    <th>Total ($)</th>
+                    <th>Receipt</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
             </div>
           </div>
         </section>
 
-        <!-- 8. AUDIT & LEDGER TAB -->
+        <!-- ===================================================================
+             12. REPORTS & VALUATION TAB (ADMIN)
+             =================================================================== -->
+        <section class="tab-panel" id="tab-reports">
+          <div class="kpi-grid">
+            <div class="report-action-card card">
+              <h3>📦 Inventory Valuation Report</h3>
+              <p class="text-muted" style="font-size: 13px; margin: 8px 0 14px;">Detailed valuation separating purchase-cost book value from projected retail gross revenue.</p>
+              <button class="btn btn-primary" id="btnGenerateValuation">Generate Valuation Report</button>
+            </div>
+
+            <div class="report-action-card card">
+              <h3>⚠️ Expiry & Safety Report</h3>
+              <p class="text-muted" style="font-size: 13px; margin: 8px 0 14px;">Batches expired or within 90 days of expiration to prevent patient harm and enforce FEFO.</p>
+              <button class="btn btn-secondary" id="btnGenerateExpiry">Generate Expiry Report</button>
+            </div>
+
+            <div class="report-action-card card">
+              <h3>📊 CSV Exports</h3>
+              <p class="text-muted" style="font-size: 13px; margin: 8px 0 14px;">Export authoritative datasets for accounting, audits, and spreadsheet reconciliation.</p>
+              <div class="btn-group">
+                <button class="btn btn-outline" id="btnExportMedsCsv">Medicines</button>
+                <button class="btn btn-outline" id="btnExportBatchesCsv">Batches</button>
+                <button class="btn btn-outline" id="btnExportAuditCsv">Audit Logs</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card mt-4">
+            <div class="card-header">
+              <h3 id="reportTitle">Report Output Preview</h3>
+              <button class="btn btn-sm btn-outline" id="btnPrintReport">Print Preview</button>
+            </div>
+            <pre class="report-preview-box" id="reportPreviewContent" style="background:#0f172a; color:#f8fafc; padding:16px; border-radius:6px; font-family:var(--font-mono); font-size:12px; overflow-x:auto;">Click a report button above to generate output from the C++ SQLite authoritative engine...</pre>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             13. AUDIT LOGS TAB (ADMIN)
+             =================================================================== -->
         <section class="tab-panel" id="tab-audit">
           <div class="toolbar">
             <div class="search-box">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
               <input type="text" id="searchAudit" placeholder="Search audit logs by user, action, or entity...">
             </div>
-            <button class="btn btn-secondary" id="btnExportAudit">Export Audit CSV</button>
           </div>
 
           <div class="card">
@@ -611,45 +909,155 @@
           </div>
         </section>
 
-        <!-- 9. REPORTS TAB -->
-        <section class="tab-panel" id="tab-reports">
-          <div class="reports-grid">
-            <div class="report-action-card card">
-              <h3>📦 Inventory Valuation Report</h3>
-              <p>Generates detailed valuation separating purchase-cost book value from projected retail gross revenue.</p>
-              <button class="btn btn-primary" id="btnGenerateValuation">View Valuation Report</button>
-            </div>
-
-            <div class="report-action-card card">
-              <h3>⚠️ Expiry & Safety Report</h3>
-              <p>Lists batches expired or within 90 days of expiration to prevent patient harm and comply with FDA regulations.</p>
-              <button class="btn btn-secondary" id="btnGenerateExpiry">View Expiry Report</button>
-            </div>
-
-            <div class="report-action-card card">
-              <h3>📊 CSV Exports</h3>
-              <p>Export authoritative data sets for accounting, audits, and spreadsheet analysis.</p>
-              <div class="btn-group">
-                <button class="btn btn-outline" id="btnExportMedsCsv">Medicines CSV</button>
-                <button class="btn btn-outline" id="btnExportBatchesCsv">Batches CSV</button>
-                <button class="btn btn-outline" id="btnExportSalesCsv">Sales CSV</button>
-              </div>
-            </div>
+        <!-- ===================================================================
+             14. USER MANAGEMENT TAB (ADMIN)
+             =================================================================== -->
+        <section class="tab-panel" id="tab-users">
+          <div class="toolbar">
+            <button class="btn btn-primary" id="btnOpenAddUser">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Register New User
+            </button>
           </div>
 
-          <div class="card mt-4">
+          <div class="card">
             <div class="card-header">
-              <h3 id="reportTitle">Report Output Preview</h3>
-              <button class="btn btn-sm btn-outline" id="btnPrintReport">Print Preview</button>
+              <h3>System Users & Role Privileges</h3>
             </div>
-            <pre class="report-preview-box" id="reportPreviewContent">Click a report above to generate and inspect output...</pre>
+            <div class="table-container">
+              <table class="data-table" id="tblUsers">
+                <thead>
+                  <tr>
+                    <th>User ID</th>
+                    <th>Username</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Assigned Role</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
           </div>
         </section>
+
+        <!-- ===================================================================
+             15. SETTINGS TAB (ADMIN)
+             =================================================================== -->
+        <section class="tab-panel" id="tab-settings">
+          <div class="card" style="max-width: 800px;">
+            <div class="card-header">
+              <h3>Pharmacy Store Information & Tax Settings</h3>
+            </div>
+            <div class="form-row">
+              <div class="form-group flex-2">
+                <label>Pharmacy Name *</label>
+                <input type="text" id="settingPharmName" value="MediFind Central Pharmacy & Dispensary" class="form-input">
+              </div>
+              <div class="form-group flex-1">
+                <label>Default Currency Symbol</label>
+                <input type="text" id="settingCurrency" value="$" class="form-input">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group flex-1">
+                <label>GSTIN (Tax ID) *</label>
+                <input type="text" id="settingGstin" value="27AABCU9603R1ZM" class="form-input">
+              </div>
+              <div class="form-group flex-1">
+                <label>Drug License Number (DL No.) *</label>
+                <input type="text" id="settingDlNo" value="DL-20B-MH-49201" class="form-input">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Store Address & Contact</label>
+              <textarea id="settingAddress" rows="2" class="form-textarea">108 Healthcare Blvd, Medical District, Suite 400 | Phone: (555) 234-5678</textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group flex-1">
+                <label>Default GST Rate (%)</label>
+                <select id="settingDefaultGst" class="form-select">
+                  <option value="12" selected>12% GST (6% CGST + 6% SGST)</option>
+                  <option value="18">18% GST (9% CGST + 9% SGST)</option>
+                  <option value="5">5% GST (2.5% CGST + 2.5% SGST)</option>
+                </select>
+              </div>
+              <div class="form-group flex-1">
+                <label>Near-Expiry Alert Horizon (Days)</label>
+                <input type="number" id="settingNearExpDays" value="90" class="form-input">
+              </div>
+            </div>
+
+            <button class="btn btn-primary" id="btnSaveSettings">Save Settings</button>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             16. NOTIFICATIONS CENTER TAB (SHARED)
+             =================================================================== -->
+        <section class="tab-panel" id="tab-notifications">
+          <div class="card">
+            <div class="card-header">
+              <h3>System Notification Center</h3>
+              <button class="btn btn-sm btn-outline" id="btnClearAllNotifs">Mark All as Read</button>
+            </div>
+            <div id="fullNotificationList" style="display:flex; flex-direction:column; gap:10px;"></div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             17. MY PROFILE TAB (SHARED)
+             =================================================================== -->
+        <section class="tab-panel" id="tab-profile">
+          <div class="card" style="max-width: 600px;">
+            <div class="card-header">
+              <h3>Active User Profile</h3>
+            </div>
+            <div style="display: flex; gap: 20px; align-items: center; margin-bottom: 20px;">
+              <div class="avatar" id="profileLargeAvatar" style="width: 64px; height: 64px; font-size: 24px;">A</div>
+              <div>
+                <h4 id="profileFullName" style="font-size: 18px;">Administrator</h4>
+                <p class="text-muted" id="profileUsername">Username: admin</p>
+                <span class="role-pill admin" id="profileRoleBadge">ADMINISTRATOR</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="text" id="profileEmail" readonly class="form-input" style="background:#f1f5f9;">
+            </div>
+
+            <div class="form-group">
+              <label>Role Permissions Summary</label>
+              <div id="profilePermissions" style="font-size: 13px; line-height: 1.6; color: var(--text-muted); background: #f8fafc; padding: 12px; border-radius: 6px;"></div>
+            </div>
+          </div>
+        </section>
+
       </div>
     </main>
   </div>
 
-  <!-- MODALS -->
+  <!-- ===================================================================
+       NOTIFICATION DRAWER (SLIDE-OUT)
+       =================================================================== -->
+  <aside class="notification-drawer" id="notificationDrawer">
+    <div class="drawer-header">
+      <h3>Notifications</h3>
+      <button class="modal-close" id="btnCloseNotifDrawer">&times;</button>
+    </div>
+    <div class="drawer-body" id="drawerNotifBody"></div>
+  </aside>
+
+  <!-- ===================================================================
+       MODALS
+       =================================================================== -->
+
   <!-- 1. Add Medicine Modal -->
   <div class="modal" id="modalAddMed">
     <div class="modal-dialog">
@@ -704,7 +1112,7 @@
   <div class="modal" id="modalStockIn">
     <div class="modal-dialog">
       <div class="modal-header">
-        <h3>Stock-In Medicine Batch</h3>
+        <h3>Direct Stock-In Medicine Batch</h3>
         <button class="modal-close" data-close="modalStockIn">&times;</button>
       </div>
       <div class="modal-body">
@@ -750,68 +1158,220 @@
     </div>
   </div>
 
-  <!-- 3. Stock Adjustment Modal -->
-  <div class="modal" id="modalAdjust">
+  <!-- 3. Stock Adjustment Request Modal -->
+  <div class="modal" id="modalAdjustmentRequest">
     <div class="modal-dialog">
       <div class="modal-header">
-        <h3>Manual Stock Adjustment (Admin Only)</h3>
-        <button class="modal-close" data-close="modalAdjust">&times;</button>
+        <h3>Submit Stock Adjustment Request</h3>
+        <button class="modal-close" data-close="modalAdjustmentRequest">&times;</button>
       </div>
       <div class="modal-body">
-        <p class="text-muted" id="adjustBatchInfo">Adjusting batch...</p>
         <div class="form-group">
-          <label>New Physical Count (Quantity) *</label>
-          <input type="number" id="adjustNewQty" class="form-input">
+          <label>Select Batch *</label>
+          <select id="adjBatchSelect" class="form-select"></select>
+        </div>
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label>Current System Stock</label>
+            <input type="text" id="adjCurrentStock" readonly class="form-input" style="background:#f1f5f9;">
+          </div>
+          <div class="form-group flex-1">
+            <label>Physical Count Found *</label>
+            <input type="number" id="adjNewCount" class="form-input" min="0">
+          </div>
         </div>
         <div class="form-group">
-          <label>Required Justification / Reason *</label>
-          <input type="text" id="adjustReason" placeholder="e.g. Periodic cycle count reconciliation" class="form-input">
+          <label>Reason Category *</label>
+          <select id="adjReasonCategory" class="form-select">
+            <option value="Damaged Stock">Damaged / Broken Packaging</option>
+            <option value="Physical Count Discrepancy">Physical Count Discrepancy (Reconciliation)</option>
+            <option value="Expired Quarantine">Expired / Contaminated (Quarantine)</option>
+            <option value="Supplier Return">Supplier Return Write-off</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Detailed Mandatory Justification *</label>
+          <textarea id="adjJustification" rows="2" placeholder="Explain the specific audit rationale for this adjustment..." class="form-textarea"></textarea>
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-outline" data-close="modalAdjust">Cancel</button>
-        <button class="btn btn-primary" id="btnConfirmAdjust">Apply Adjustment</button>
+        <button class="btn btn-outline" data-close="modalAdjustmentRequest">Cancel</button>
+        <button class="btn btn-primary" id="btnSubmitAdjustmentReq">Submit for Admin Approval</button>
       </div>
     </div>
   </div>
 
-  <!-- 4. Invoice Success Modal -->
+  <!-- 4. Submit Restock Modal -->
+  <div class="modal" id="modalSubmitRestock">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Submit Restock Request</h3>
+        <button class="modal-close" data-close="modalSubmitRestock">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Medicine *</label>
+          <select id="restockMedSelect" class="form-select"></select>
+        </div>
+        <div class="form-group">
+          <label>Requested Quantity *</label>
+          <input type="number" id="restockQuantity" value="50" min="1" class="form-input">
+        </div>
+        <div class="form-group">
+          <label>Reason / Urgency *</label>
+          <input type="text" id="restockReason" placeholder="e.g. Floor stock below threshold, high prescription volume" class="form-input">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" data-close="modalSubmitRestock">Cancel</button>
+        <button class="btn btn-primary" id="btnSaveRestockReq">Submit Request</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Create Purchase Order Modal -->
+  <div class="modal" id="modalCreatePo">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Create Purchase Order</h3>
+        <button class="modal-close" data-close="modalCreatePo">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Supplier *</label>
+          <select id="poSupplierSelect" class="form-select"></select>
+        </div>
+        <div class="form-group">
+          <label>Medicine to Order *</label>
+          <select id="poMedicineSelect" class="form-select"></select>
+        </div>
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label>Quantity *</label>
+            <input type="number" id="poQuantity" value="100" min="1" class="form-input">
+          </div>
+          <div class="form-group flex-1">
+            <label>Agreed Unit Cost ($) *</label>
+            <input type="number" id="poUnitCost" step="0.01" value="2.00" class="form-input">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" data-close="modalCreatePo">Cancel</button>
+        <button class="btn btn-primary" id="btnSavePo">Generate Purchase Order</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Add Supplier Modal -->
+  <div class="modal" id="modalAddSupplier">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Add Healthcare Supplier</h3>
+        <button class="modal-close" data-close="modalAddSupplier">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Company Name *</label>
+          <input type="text" id="supName" placeholder="e.g. Apollo BioPharma Distribution" class="form-input">
+        </div>
+        <div class="form-group">
+          <label>Contact Person</label>
+          <input type="text" id="supContact" placeholder="e.g. Rahul V." class="form-input">
+        </div>
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label>Email</label>
+            <input type="email" id="supEmail" placeholder="orders@distributor.com" class="form-input">
+          </div>
+          <div class="form-group flex-1">
+            <label>Phone</label>
+            <input type="text" id="supPhone" placeholder="+91 99887 76655" class="form-input">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" data-close="modalAddSupplier">Cancel</button>
+        <button class="btn btn-primary" id="btnSaveSupplier">Save Supplier</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Add User Modal -->
+  <div class="modal" id="modalAddUser">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-header">
+        <h3>Register New User</h3>
+        <button class="modal-close" data-close="modalAddUser">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Username *</label>
+          <input type="text" id="newUsername" placeholder="e.g. employee2" class="form-input">
+        </div>
+        <div class="form-group">
+          <label>Full Name *</label>
+          <input type="text" id="newUserFullName" placeholder="e.g. Sarah Jenkins" class="form-input">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="newUserEmail" placeholder="sarah@pharmacy.com" class="form-input">
+        </div>
+        <div class="form-group">
+          <label>Role *</label>
+          <select id="newUserRole" class="form-select">
+            <option value="EMPLOYEE">Staff / Employee</option>
+            <option value="ADMINISTRATOR">Administrator</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Initial Password *</label>
+          <input type="password" id="newUserPassword" value="Staff@123" class="form-input">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" data-close="modalAddUser">Cancel</button>
+        <button class="btn btn-primary" id="btnSaveUser">Create Account</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. GST Tax Invoice Modal (Print-Ready) -->
   <div class="modal" id="modalInvoice">
     <div class="modal-dialog modal-lg">
       <div class="modal-header">
-        <h3>Pharmacy Dispensing Receipt</h3>
+        <h3>Pharmacy Dispensing & GST Tax Invoice</h3>
         <button class="modal-close" data-close="modalInvoice">&times;</button>
       </div>
       <div class="modal-body" id="invoiceReceiptBody"></div>
       <div class="modal-footer">
-        <button class="btn btn-secondary" onclick="window.print()">Print Receipt</button>
+        <button class="btn btn-secondary" onclick="window.print()">Print Invoice</button>
         <button class="btn btn-primary" data-close="modalInvoice">Done</button>
       </div>
     </div>
   </div>
 
-  <!-- 5. Role Switch / Login Modal -->
+  <!-- 9. Login / Role Switcher Modal -->
   <div class="modal" id="modalAuth">
     <div class="modal-dialog modal-sm">
       <div class="modal-header">
-        <h3>Switch Role / Sign In</h3>
+        <h3>Sign In / Switch Persona</h3>
         <button class="modal-close" data-close="modalAuth">&times;</button>
       </div>
       <div class="modal-body">
-        <p class="text-muted">Choose persona to demonstrate role-based permissions:</p>
-        <div class="role-selector-btns">
-          <button class="btn btn-primary w-full mb-2" id="btnSelectAdmin">Login as Administrator (admin)</button>
-          <button class="btn btn-secondary w-full" id="btnSelectStaff">Login as Staff (employee1)</button>
+        <p class="text-muted" style="font-size: 13px; margin-bottom: 14px;">Log in to access your role-based workspace:</p>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <button class="btn btn-primary w-full" id="btnSelectAdmin">Login as Administrator (admin)</button>
+          <button class="btn btn-secondary w-full" id="btnSelectStaff">Login as Staff / Employee (employee1)</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Toast Notifications Container -->
+  <!-- Toast Stack -->
   <div class="toast-stack" id="toastStack"></div>
 
-  <!-- Scripts -->
-  <script src="js/dsa.js"></script>
+  <!-- Core JavaScript -->
   <script src="js/app.js"></script>
 </body>
 </html>
