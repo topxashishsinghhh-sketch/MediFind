@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediFind — Advanced Medical Inventory & FEFO Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app" class="app-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20M2 12h20"/>
+            <rect x="3" y="3" width="18" height="18" rx="4"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h2>MediFind</h2>
+          <span>Clinical & FEFO Suite</span>
+        </div>
+      </div>
+
+      <div class="user-profile-badge" id="sidebarUserProfile">
+        <div class="avatar" id="userAvatar">A</div>
+        <div class="user-meta">
+          <strong id="userName">Administrator</strong>
+          <span class="role-pill admin" id="userRoleBadge">ADMIN</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-tab="dashboard">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+          <span>Dashboard</span>
+        </button>
+        <button class="nav-item" data-tab="inventory">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+          <span>Medicine Catalog</span>
+        </button>
+        <button class="nav-item" data-tab="batches">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+          <span>Batch & Expiry (FEFO)</span>
+        </button>
+        <button class="nav-item" data-tab="pos">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+          <span>Dispense / POS</span>
+        </button>
+        <button class="nav-item" data-tab="orders">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <span>Suppliers & POs</span>
+        </button>
+        <button class="nav-item" data-tab="restock">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>
+          <span>Restock Pipeline</span>
+        </button>
+        <button class="nav-item" data-tab="dsa">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><circle cx="6" cy="19" r="3"/><circle cx="18" cy="19" r="3"/><path d="M9 17l2-9"/><path d="M15 17l-2-9"/></svg>
+          <span>DSA Diagnostics</span>
+        </button>
+        <button class="nav-item" data-tab="audit">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Audit & Ledger</span>
+        </button>
+        <button class="nav-item" data-tab="reports">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span>Analytics & Exports</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="system-status">
+          <span class="status-indicator online"></span>
+          <span>Engine: C++17 / SQLite</span>
+        </div>
+        <button class="btn-logout" id="btnLogout">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Switch Role / Logout
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main class="main-content">
+      <!-- Top Action Bar -->
+      <header class="top-header">
+        <div class="header-left">
+          <h1 id="pageTitle">Executive Operations Dashboard</h1>
+          <p id="pageSubtitle">Real-time pharmacy asset valuations, FEFO queues, and alert telemetry</p>
+        </div>
+        <div class="header-right">
+          <button class="btn btn-outline" id="btnToggleTheme" title="Toggle Light / Dark Mode">
+            <span id="themeIcon">🌙</span>
+          </button>
+          <div class="quick-stat-pill">
+            <span class="pulse-dot"></span>
+            <span id="fefoPolicyPill">FEFO Engine: Active</span>
+          </div>
+          <button class="btn btn-secondary" id="btnExportQuick">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export CSV
+          </button>
+          <button class="btn btn-primary" id="btnOpenNewSale">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            New Dispense (POS)
+          </button>
+        </div>
+      </header>
+
+      <!-- Tab Content Panels -->
+      <div class="tab-viewport">
+        <!-- 1. DASHBOARD TAB -->
+        <section class="tab-panel active" id="tab-dashboard">
+          <div class="kpi-grid">
+            <div class="kpi-card accent-blue">
+              <div class="kpi-header">
+                <span>Active Medicines</span>
+                <span class="kpi-badge">+100% Verified</span>
+              </div>
+              <div class="kpi-value" id="kpiMeds">10</div>
+              <div class="kpi-sub">Across 8 pharmaceutical classes</div>
+            </div>
+
+            <div class="kpi-card accent-cyan">
+              <div class="kpi-header">
+                <span>Active Batches</span>
+                <span class="kpi-badge">FEFO Queued</span>
+              </div>
+              <div class="kpi-value" id="kpiBatches">13</div>
+              <div class="kpi-sub" id="kpiBatchesSub">1 Expired quarantined</div>
+            </div>
+
+            <div class="kpi-card accent-emerald">
+              <div class="kpi-header">
+                <span>Total Units in Stock</span>
+                <span class="kpi-badge">Real-Time</span>
+              </div>
+              <div class="kpi-value" id="kpiUnits">1,480</div>
+              <div class="kpi-sub">Physical shelf units verified</div>
+            </div>
+
+            <div class="kpi-card accent-indigo">
+              <div class="kpi-header">
+                <span>Asset Purchase Cost</span>
+                <span class="kpi-badge">Valuation</span>
+              </div>
+              <div class="kpi-value" id="kpiCost">$9,165.00</div>
+              <div class="kpi-sub">Authoritative book value (SQLite)</div>
+            </div>
+
+            <div class="kpi-card accent-teal">
+              <div class="kpi-header">
+                <span>Projected Retail Value</span>
+                <span class="kpi-badge">Turnover</span>
+              </div>
+              <div class="kpi-value" id="kpiRetail">$15,730.00</div>
+              <div class="kpi-sub">Projected gross dispensary revenue</div>
+            </div>
+
+            <div class="kpi-card accent-rose">
+              <div class="kpi-header">
+                <span>Safety & Expiry Alerts</span>
+                <span class="kpi-badge danger">Urgent</span>
+              </div>
+              <div class="kpi-value text-danger" id="kpiAlerts">2</div>
+              <div class="kpi-sub" id="kpiAlertsDetail">1 low stock, 1 expired batch</div>
+            </div>
+          </div>
+
+          <!-- Section: Alerts banner if any -->
+          <div class="alert-banner-container" id="dashboardAlertContainer"></div>
+
+          <!-- Real-Time Analytics Charts -->
+          <div class="dashboard-split">
+            <div class="card flex-1">
+              <div class="card-header">
+                <h3>Stock Volume by Therapeutic Category</h3>
+                <span class="badge badge-primary">Real-Time Distribution</span>
+              </div>
+              <div style="height: 240px; position: relative;">
+                <canvas id="chartCategory"></canvas>
+              </div>
+            </div>
+            <div class="card flex-1">
+              <div class="card-header">
+                <h3>Expiry Risk Timeline & Critical Batches</h3>
+                <span class="badge badge-warning">FEFO Shelf Life Radar</span>
+              </div>
+              <div style="height: 240px; position: relative;">
+                <canvas id="chartExpiryTimeline"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Charts / Overview Split -->
+          <div class="dashboard-split">
+            <div class="card flex-2">
+              <div class="card-header">
+                <h3>FEFO Priority Dispatch Queue (Next Expiring Batches)</h3>
+                <span class="badge badge-info">Algorithm: Earliest Expiry First</span>
+              </div>
+              <div class="table-container">
+                <table class="data-table" id="tblFefoPreview">
+                  <thead>
+                    <tr>
+                      <th>Medicine</th>
+                      <th>Batch Number</th>
+                      <th>Expiry Date</th>
+                      <th>Days Left</th>
+                      <th>Units</th>
+                      <th>Unit Cost</th>
+                      <th>FEFO Status</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="card flex-1">
+              <div class="card-header">
+                <h3>DSA Architecture Overview</h3>
+              </div>
+              <div class="dsa-mini-list">
+                <div class="dsa-item">
+                  <div class="dsa-icon">#</div>
+                  <div>
+                    <strong>Hash Table (Separate Chaining)</strong>
+                    <p>O(1) Avg lookup for medicine ID cache & stock checks</p>
+                  </div>
+                </div>
+                <div class="dsa-item">
+                  <div class="dsa-icon">🌲</div>
+                  <div>
+                    <strong>Binary Search Tree</strong>
+                    <p>In-order prefix search for instant medicine autocomplete</p>
+                  </div>
+                </div>
+                <div class="dsa-item">
+                  <div class="dsa-icon">⏳</div>
+                  <div>
+                    <strong>FEFO Priority Engine</strong>
+                    <p>Deterministic date-sorted queue ensuring minimum expiry wastage</p>
+                  </div>
+                </div>
+                <div class="dsa-item">
+                  <div class="dsa-icon">⇄</div>
+                  <div>
+                    <strong>FIFO Request Queue</strong>
+                    <p>Orderly approval chain for floor restock submissions</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Movements -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Recent Stock Movements & Audit Trail</h3>
+              <button class="btn btn-sm btn-outline" id="btnRefreshMovements">Refresh Ledger</button>
+            </div>
+            <div class="table-container">
+              <table class="data-table" id="tblRecentMovements">
+                <thead>
+                  <tr>
+                    <th>Timestamp</th>
+                    <th>Type</th>
+                    <th>Medicine</th>
+                    <th>Batch</th>
+                    <th>Quantity</th>
+                    <th>Balance After</th>
+                    <th>Reference / Reason</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. MEDICINE INVENTORY TAB -->
+        <section class="tab-panel" id="tab-inventory">
+          <div class="toolbar">
+            <div class="search-box">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="searchMedicine" placeholder="Search medicine by name, brand, or barcode...">
+            </div>
+            <select id="filterCategory" class="form-select">
+              <option value="">All Categories</option>
+            </select>
+            <button class="btn btn-primary" id="btnOpenAddMed">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add New Medicine
+            </button>
+          </div>
+
+          <div class="card">
+            <div class="table-container">
+              <table class="data-table" id="tblMedicines">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Medicine Name</th>
+                    <th>Brand</th>
+                    <th>Strength</th>
+                    <th>Form</th>
+                    <th>Category</th>
+                    <th>Barcode</th>
+                    <th>Total Stock</th>
+                    <th>Threshold</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. BATCH & FEFO EXPIRY TAB -->
+        <section class="tab-panel" id="tab-batches">
+          <div class="toolbar">
+            <div class="search-box">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="searchBatch" placeholder="Filter batch number or medicine...">
+            </div>
+            <select id="filterBatchStatus" class="form-select">
+              <option value="">All Statuses</option>
+              <option value="AVAILABLE">Available</option>
+              <option value="NEAR_EXPIRY">Near Expiry (&le; 90 days)</option>
+              <option value="EXPIRED">Expired (Quarantined)</option>
+              <option value="DEPLETED">Depleted (0 units)</option>
+            </select>
+            <button class="btn btn-primary" id="btnOpenStockIn">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Stock-In New Batch
+            </button>
+          </div>
+
+          <div class="card">
+            <div class="table-container">
+              <table class="data-table" id="tblBatches">
+                <thead>
+                  <tr>
+                    <th>Batch ID</th>
+                    <th>Medicine</th>
+                    <th>Batch #</th>
+                    <th>Mfg Date</th>
+                    <th>Expiry Date</th>
+                    <th>Quantity</th>
+                    <th>Cost Price</th>
+                    <th>Selling Price</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. POINT OF SALE (POS) & FEFO DISPENSE -->
+        <section class="tab-panel" id="tab-pos">
+          <div class="pos-layout">
+            <!-- Left: Catalog & Cart Builder -->
+            <div class="pos-builder card">
+              <div class="card-header">
+                <h3>Select Medicine to Dispense</h3>
+                <span class="badge badge-success">Live FEFO Allocator</span>
+              </div>
+
+              <div class="form-group">
+                <label>Choose Medicine</label>
+                <select id="posSelectMed" class="form-select"></select>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group flex-1">
+                  <label>Quantity to Dispense</label>
+                  <input type="number" id="posQuantity" min="1" value="1" class="form-input">
+                </div>
+                <div class="form-group flex-1">
+                  <label>Available in Stock</label>
+                  <input type="text" id="posAvailableStock" readonly value="--" class="form-input bg-muted">
+                </div>
+              </div>
+
+              <button class="btn btn-primary w-full" id="btnPosAddToCart">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                Add to Cart (FEFO Preview)
+              </button>
+
+              <div class="fefo-preview-box" id="posFefoPreviewBox">
+                <h4>Deterministic Batch Allocation Preview</h4>
+                <div id="posFefoExplanation">Select an item and quantity to preview allocation breakdown.</div>
+              </div>
+            </div>
+
+            <!-- Right: Cart & Billing -->
+            <div class="pos-cart card">
+              <div class="card-header">
+                <h3>Customer Dispensing Order</h3>
+                <button class="btn btn-sm btn-outline text-danger" id="btnPosClearCart">Clear Cart</button>
+              </div>
+
+              <div class="table-container pos-table-wrap">
+                <table class="data-table" id="tblPosCart">
+                  <thead>
+                    <tr>
+                      <th>Medicine</th>
+                      <th>Batch Allocated</th>
+                      <th>Expiry</th>
+                      <th>Qty</th>
+                      <th>Unit Price</th>
+                      <th>Subtotal</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+
+              <div class="pos-checkout-section">
+                <div class="form-row">
+                  <div class="form-group flex-2">
+                    <label>Patient / Customer Name</label>
+                    <input type="text" id="posCustomerName" placeholder="Walk-in Customer" class="form-input">
+                  </div>
+                  <div class="form-group flex-1">
+                    <label>Payment Method</label>
+                    <select id="posPaymentMethod" class="form-select">
+                      <option value="CASH">Cash</option>
+                      <option value="CARD">Debit / Credit Card</option>
+                      <option value="UPI">UPI / Digital</option>
+                      <option value="INSURANCE">Insurance Claim</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="pos-summary">
+                  <div class="summary-line">
+                    <span>Subtotal:</span>
+                    <strong id="posSubtotal">$0.00</strong>
+                  </div>
+                  <div class="summary-line total-line">
+                    <span>Grand Total:</span>
+                    <strong id="posGrandTotal" class="text-success">$0.00</strong>
+                  </div>
+                </div>
+
+                <button class="btn btn-success btn-lg w-full" id="btnPosCheckout">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                  Confirm Sale & Deduct FEFO Batches
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. SUPPLIERS & ORDERS TAB -->
+        <section class="tab-panel" id="tab-orders">
+          <div class="toolbar">
+            <button class="btn btn-primary" id="btnOpenAddSupplier">Add Supplier</button>
+            <button class="btn btn-secondary" id="btnOpenCreatePo">Create Purchase Order</button>
+          </div>
+
+          <div class="dashboard-split">
+            <div class="card flex-1">
+              <div class="card-header">
+                <h3>Verified Healthcare Suppliers</h3>
+              </div>
+              <div class="table-container">
+                <table class="data-table" id="tblSuppliers">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Company</th>
+                      <th>Contact Person</th>
+                      <th>Email</th>
+                      <th>Phone</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="card flex-1">
+              <div class="card-header">
+                <h3>Purchase Orders & Inbound Receipts</h3>
+              </div>
+              <div class="table-container">
+                <table class="data-table" id="tblOrders">
+                  <thead>
+                    <tr>
+                      <th>PO Ref</th>
+                      <th>Supplier</th>
+                      <th>Order Date</th>
+                      <th>Status</th>
+                      <th>Total ($)</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. RESTOCK PIPELINE TAB -->
+        <section class="tab-panel" id="tab-restock">
+          <div class="toolbar">
+            <button class="btn btn-primary" id="btnOpenSubmitRestock">Submit Restock Request</button>
+            <span class="info-pill">Employees can request restocks; Administrators review & approve</span>
+          </div>
+
+          <div class="card">
+            <div class="table-container">
+              <table class="data-table" id="tblRestock">
+                <thead>
+                  <tr>
+                    <th>Ref ID</th>
+                    <th>Medicine</th>
+                    <th>Requested Qty</th>
+                    <th>Submitted By</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. DSA DIAGNOSTICS TAB -->
+        <section class="tab-panel" id="tab-dsa">
+          <div class="dsa-dashboard">
+            <div class="card">
+              <div class="card-header">
+                <h3>Data Structures & Algorithms in Action</h3>
+                <span class="badge badge-primary">Interactive Demonstrator</span>
+              </div>
+              <p class="text-muted">Explore how MediFind employs custom DSA components for O(1) cache lookups, O(log N) prefix searches, and deterministic FEFO stock allocations.</p>
+
+              <div class="dsa-grid-interactive">
+                <!-- 1. Hash Table Simulator -->
+                <div class="dsa-card">
+                  <h4>1. Medicine ID Hash Table (Separate Chaining)</h4>
+                  <p class="text-muted">Simulates <code>HashTable&lt;int, Medicine&gt;</code> bucket index distribution (capacity: 16 buckets).</p>
+                  <div class="hash-table-vis" id="hashTableVis"></div>
+                </div>
+
+                <!-- 2. BST Prefix Search -->
+                <div class="dsa-card">
+                  <h4>2. Binary Search Tree (Prefix Autocomplete)</h4>
+                  <p class="text-muted">Type a prefix to simulate <code>BST::findByPrefix()</code> alphabetical traversal.</p>
+                  <div class="form-group">
+                    <input type="text" id="bstPrefixInput" placeholder="Try 'P', 'A', 'M', or 'I'..." class="form-input">
+                  </div>
+                  <div class="bst-results" id="bstResults"></div>
+                </div>
+
+                <!-- 3. FEFO Queue Allocator -->
+                <div class="dsa-card">
+                  <h4>3. FEFO Deterministic Allocation Queue</h4>
+                  <p class="text-muted">Visualizes the sorted multi-batch depletion process (earliest expiration consumed first).</p>
+                  <div class="fefo-queue-vis" id="fefoQueueVis"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 8. AUDIT & LEDGER TAB -->
+        <section class="tab-panel" id="tab-audit">
+          <div class="toolbar">
+            <div class="search-box">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="searchAudit" placeholder="Search audit logs by user, action, or entity...">
+            </div>
+            <button class="btn btn-secondary" id="btnExportAudit">Export Audit CSV</button>
+          </div>
+
+          <div class="card">
+            <div class="table-container">
+              <table class="data-table" id="tblAudit">
+                <thead>
+                  <tr>
+                    <th>Timestamp</th>
+                    <th>User</th>
+                    <th>Action</th>
+                    <th>Entity Type</th>
+                    <th>Entity ID</th>
+                    <th>Change Summary</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 9. REPORTS TAB -->
+        <section class="tab-panel" id="tab-reports">
+          <div class="reports-grid">
+            <div class="report-action-card card">
+              <h3>📦 Inventory Valuation Report</h3>
+              <p>Generates detailed valuation separating purchase-cost book value from projected retail gross revenue.</p>
+              <button class="btn btn-primary" id="btnGenerateValuation">View Valuation Report</button>
+            </div>
+
+            <div class="report-action-card card">
+              <h3>⚠️ Expiry & Safety Report</h3>
+              <p>Lists batches expired or within 90 days of expiration to prevent patient harm and comply with FDA regulations.</p>
+              <button class="btn btn-secondary" id="btnGenerateExpiry">View Expiry Report</button>
+            </div>
+
+            <div class="report-action-card card">
+              <h3>📊 CSV Exports</h3>
+              <p>Export authoritative data sets for accounting, audits, and spreadsheet analysis.</p>
+              <div class="btn-group">
+                <button class="btn btn-outline" id="btnExportMedsCsv">Medicines CSV</button>
+                <button class="btn btn-outline" id="btnExportBatchesCsv">Batches CSV</button>
+                <button class="btn btn-outline" id="btnExportSalesCsv">Sales CSV</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card mt-4">
+            <div class="card-header">
+              <h3 id="reportTitle">Report Output Preview</h3>
+              <button class="btn btn-sm btn-outline" id="btnPrintReport">Print Preview</button>
+            </div>
+            <pre class="report-preview-box" id="reportPreviewContent">Click a report above to generate and inspect output...</pre>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- MODALS -->
+  <!-- 1. Add Medicine Modal -->
+  <div class="modal" id="modalAddMed">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Add New Medicine</h3>
+        <button class="modal-close" data-close="modalAddMed">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Medicine Name *</label>
+          <input type="text" id="newMedName" placeholder="e.g. Pantoprazole 40mg" class="form-input">
+        </div>
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label>Brand</label>
+            <input type="text" id="newMedBrand" placeholder="e.g. Protonix" class="form-input">
+          </div>
+          <div class="form-group flex-1">
+            <label>Strength</label>
+            <input type="text" id="newMedStrength" placeholder="e.g. 40 mg" class="form-input">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label>Dosage Form</label>
+            <input type="text" id="newMedForm" placeholder="e.g. Tablet, Syrup" class="form-input">
+          </div>
+          <div class="form-group flex-1">
+            <label>Category</label>
+            <input type="text" id="newMedCat" placeholder="e.g. Gastrointestinal" class="form-input">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label>Barcode ID</label>
+            <input type="text" id="newMedBarcode" placeholder="e.g. MED-890123" class="form-input">
+          </div>
+          <div class="form-group flex-1">
+            <label>Min Stock Threshold</label>
+            <input type="number" id="newMedMin" value="10" class="form-input">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" data-close="modalAddMed">Cancel</button>
+        <button class="btn btn-primary" id="btnSaveMedicine">Save Medicine</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Stock-In Batch Modal -->
+  <div class="modal" id="modalStockIn">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Stock-In Medicine Batch</h3>
+        <button class="modal-close" data-close="modalStockIn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Target Medicine *</label>
+          <select id="stockInMedSelect" class="form-select"></select>
+        </div>
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label>Batch Number *</label>
+            <input type="text" id="stockInBatchNo" placeholder="e.g. PAN-2026-09" class="form-input">
+          </div>
+          <div class="form-group flex-1">
+            <label>Quantity *</label>
+            <input type="number" id="stockInQty" value="50" min="1" class="form-input">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label>Mfg Date (YYYY-MM-DD)</label>
+            <input type="date" id="stockInMfg" class="form-input">
+          </div>
+          <div class="form-group flex-1">
+            <label>Expiry Date (YYYY-MM-DD) *</label>
+            <input type="date" id="stockInExp" class="form-input">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label>Purchase Cost ($) *</label>
+            <input type="number" id="stockInCost" step="0.01" value="2.50" class="form-input">
+          </div>
+          <div class="form-group flex-1">
+            <label>Selling Price ($) *</label>
+            <input type="number" id="stockInPrice" step="0.01" value="5.00" class="form-input">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" data-close="modalStockIn">Cancel</button>
+        <button class="btn btn-primary" id="btnSaveStockIn">Stock-In Batch</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Stock Adjustment Modal -->
+  <div class="modal" id="modalAdjust">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Manual Stock Adjustment (Admin Only)</h3>
+        <button class="modal-close" data-close="modalAdjust">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="text-muted" id="adjustBatchInfo">Adjusting batch...</p>
+        <div class="form-group">
+          <label>New Physical Count (Quantity) *</label>
+          <input type="number" id="adjustNewQty" class="form-input">
+        </div>
+        <div class="form-group">
+          <label>Required Justification / Reason *</label>
+          <input type="text" id="adjustReason" placeholder="e.g. Periodic cycle count reconciliation" class="form-input">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" data-close="modalAdjust">Cancel</button>
+        <button class="btn btn-primary" id="btnConfirmAdjust">Apply Adjustment</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Invoice Success Modal -->
+  <div class="modal" id="modalInvoice">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-header">
+        <h3>Pharmacy Dispensing Receipt</h3>
+        <button class="modal-close" data-close="modalInvoice">&times;</button>
+      </div>
+      <div class="modal-body" id="invoiceReceiptBody"></div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="window.print()">Print Receipt</button>
+        <button class="btn btn-primary" data-close="modalInvoice">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Role Switch / Login Modal -->
+  <div class="modal" id="modalAuth">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-header">
+        <h3>Switch Role / Sign In</h3>
+        <button class="modal-close" data-close="modalAuth">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="text-muted">Choose persona to demonstrate role-based permissions:</p>
+        <div class="role-selector-btns">
+          <button class="btn btn-primary w-full mb-2" id="btnSelectAdmin">Login as Administrator (admin)</button>
+          <button class="btn btn-secondary w-full" id="btnSelectStaff">Login as Staff (employee1)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notifications Container -->
+  <div class="toast-stack" id="toastStack"></div>
+
+  <!-- Scripts -->
+  <script src="js/dsa.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
