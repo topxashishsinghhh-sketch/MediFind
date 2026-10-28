@@ -1,0 +1,30 @@
+# Build output
+build/
+*.exe
+*.a
+*.o
+*.obj
+
+# Database files (runtime data — not source)
+*.db
+*.db-shm
+*.db-wal
+
+# CSV exports
+*.csv
+
+# IDE / editor
+.vscode/
+.idea/
+*.user
+*.suo
+CMakeSettings.json
+
+# Qt MOC / generated
+*_autogen/
+moc_*.cpp
+ui_*.h
+
+# OS
+Thumbs.db
+.DS_Store
