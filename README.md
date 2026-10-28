@@ -44,26 +44,27 @@ The system manages:
 ## UI/UX & Features
 
 MediFind provides two first-class interfaces that operate over the authoritative SQLite database:
-1. **Modern Web Operations Portal**: Designed with an executive clinical health-tech aesthetic (dark/light mode, Chart.js analytics, sound synthesis, printable receipts).
+1. **Modern SaaS Web Suite**: Designed with a clean navy & teal SaaS aesthetic (light/dark mode, Chart.js analytics, Indian GST tax invoicing, role-based 5-section navigation, and notification center).
 2. **Interactive Terminal CLI (`medifind_console`)**: A structured command-line interface for terminal usage, automated workflows, and college viva demonstration.
 
-| Feature | Web Portal UI | Console CLI |
+| Feature | Web Suite UI | Console CLI |
 |---|:---:|:---:|
-| Role-based authentication (Admin / Staff) | ✅ | ✅ |
-| Executive KPI Dashboard | ✅ | ✅ |
+| Role-based authentication & views (Admin / Staff) | ✅ | ✅ |
+| Executive & Shift KPI Dashboards | ✅ | ✅ |
 | Therapeutic Category Distribution Chart | ✅ | — |
 | Expiry Risk Timeline Radar Chart | ✅ | — |
 | Medicine Catalog & Barcode Search | ✅ | ✅ |
 | Multi-Batch Management & Quarantine | ✅ | ✅ |
-| Inbound Batch Stock-In Workflow | ✅ | ✅ |
+| Inbound Delivery Receiving Station (against PO) | ✅ | ✅ |
 | POS Dispenser with Live FEFO Batch Allocation | ✅ | ✅ |
-| Sound Haptics (Scanner / Dispense Chimes) | ✅ | — |
-| Formatted Printable Pharmacy Receipts | ✅ | ✅ |
-| Customer Returns & Restock Policies | ✅ | ✅ |
-| Stock Adjustments & Reconciliation (Admin only) | ✅ | ✅ |
-| Supplier Management & Purchase Orders | ✅ | ✅ |
+| Indian GST Tax Breakdown (CGST + SGST) | ✅ | — |
+| Print-Ready GST Tax Invoices | ✅ | ✅ |
+| Customer Records & Sales Ledger | ✅ | ✅ |
+| Stock Adjustment Workflow (Mandatory Justification & Admin Sign-off) | ✅ | ✅ |
+| Supplier Directory & Purchase Order Lifecycle | ✅ | ✅ |
 | Floor Restock Request Pipeline (FIFO Queue) | ✅ | ✅ |
-| Interactive DSA Diagnostics Visualizer | ✅ | ✅ |
+| User Provisioning & Pharmacy Settings | ✅ | ✅ |
+| Notification Drawer & Safety Alert Badges | ✅ | — |
 | Immutable System Audit Ledger | ✅ | ✅ |
 | Cost-Basis vs Retail Margin Valuation | ✅ | ✅ |
 | One-Click CSV Data Exports | ✅ | ✅ |
