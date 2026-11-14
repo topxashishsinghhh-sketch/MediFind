@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #102A43;
+  --color-teal: #13A89E;
+  --color-soft-grey: #F3F7FA;
+  --color-white: #FFFFFF;
+
+  --font-sans: system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+}
+
+html {
+  @apply text-navy-800 bg-soft-grey;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

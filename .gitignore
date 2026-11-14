@@ -1,0 +1,22 @@
+# Build artifacts
+backend/bin/
+backend/build/
+*.exe
+*.obj
+*.o
+
+# Data files (generated at runtime)
+data/*.csv
+
+# Vendored dependencies (submodules)
+backend/include/vendor/asio/
+backend/include/vendor/crow/
+
+# Node modules
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# OS
+.DS_Store
+Thumbs.db
