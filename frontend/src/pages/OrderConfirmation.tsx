@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { orderApi, Order } from '@/services/api';
+import { useParams, Link } from 'react-router-dom';
+import { orderApi } from '../services/api';
+import type { Order, OrderItem } from '../services/api';
 
 export default function OrderConfirmation() {
   const { id } = useParams<{ id: string }>();
@@ -12,7 +12,7 @@ export default function OrderConfirmation() {
 
   useEffect(() => {
     let mounted = true;
-    orderApi.get(orderId).then((res) => {
+    orderApi.get(orderId).then((res: { data?: Order; error?: string }) => {
       if (!mounted) return;
       if (res.error) {
         setError(res.error);
@@ -96,7 +96,7 @@ export default function OrderConfirmation() {
             <div className="mb-4">
               <h3 className="text-navy font-bold text-sm mb-2">Items</h3>
               <div className="space-y-2">
-                {order.items.map((item) => (
+                {order.items.map((item: OrderItem) => (
                   <div key={item.id} className="flex justify-between text-sm text-navy-600">
                     <span>Product #{item.productId} × {item.quantity}</span>
                     <span>₹{item.totalPrice.toFixed(2)}</span>

@@ -149,12 +149,17 @@ export const authApi = {
 };
 
 export const productApi = {
-  list: (params?: { category?: string; search?: string; prescriptionRequired?: boolean }) => {
+  list: async (params?: { category?: string; search?: string; prescriptionRequired?: boolean }): Promise<ApiResponse<Product[]>> => {
     const qs = new URLSearchParams();
     if (params?.category) qs.set('category', params.category);
     if (params?.search) qs.set('search', params.search);
     if (params?.prescriptionRequired !== undefined) qs.set('prescriptionRequired', String(params.prescriptionRequired));
-    return api.get<Product[]>(`/products?${qs.toString()}`);
+    const res = await api.get<{ products?: Product[] } | Product[]>(`/products?${qs.toString()}`);
+    if (res.data) {
+      const items = Array.isArray(res.data) ? res.data : (res.data.products ?? []);
+      return { data: items, message: res.message, error: res.error };
+    }
+    return { error: res.error, message: res.message };
   },
   get: (id: number) => api.get<ProductWithBatches>(`/products/${id}`),
   search: (q: string) => api.get<Product[]>(`/products/search?q=${encodeURIComponent(q)}`),

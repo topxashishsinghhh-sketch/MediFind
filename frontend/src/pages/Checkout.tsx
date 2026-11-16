@@ -1,7 +1,8 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useCart } from '@/context/CartContext';
-import { productApi, orderApi, ProductWithBatches, CartItem } from '@/services/api';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
+import { productApi, orderApi } from '../services/api';
+import type { ProductWithBatches, CartItem } from '../services/api';
 
 const ADDRESSES = [
   {
@@ -42,7 +43,7 @@ export default function Checkout() {
   }, [items]);
 
   const subtotal = Array.from(productDetails.entries()).reduce((sum, [pid, p]) => {
-    const item = items.find((i) => i.productId === pid);
+    const item = items.find((i: CartItem) => i.productId === pid);
     const price = p.batches?.[0]?.sellingPrice ?? 0;
     return sum + price * (item?.quantity ?? 0);
   }, 0);
@@ -52,7 +53,7 @@ export default function Checkout() {
   const handlePlaceOrder = async () => {
     setLoading(true);
     try {
-      const cartItems: { productId: number; quantity: number }[] = items.map((i) => ({
+      const cartItems: { productId: number; quantity: number }[] = items.map((i: CartItem) => ({
         productId: i.productId,
         quantity: i.quantity,
       }));
@@ -154,9 +155,9 @@ export default function Checkout() {
             <label className="block text-navy font-medium mb-2">Payment Method</label>
             <div className="space-y-2">
               {[
-                { value: 'card', label: 'Credit/Debit Card', icon: '💳' },
-                { value: 'upi', label: 'UPI / Wallet', icon: '📱' },
-                { value: 'cod', label: 'Cash on Delivery', icon: '💵' },
+                { value: 'card' as const, label: 'Credit/Debit Card', icon: '💳' },
+                { value: 'upi' as const, label: 'UPI / Wallet', icon: '📱' },
+                { value: 'cod' as const, label: 'Cash on Delivery', icon: '💵' },
               ].map((m) => (
                 <label
                   key={m.value}

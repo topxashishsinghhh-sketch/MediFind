@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { productApi, ProductWithBatches, Batch } from '@/services/api';
+import { useParams, Link } from 'react-router-dom';
+import { productApi } from '../services/api';
+import type { ProductWithBatches, Batch } from '../services/api';
+import { useCart } from '../context/CartContext';
 
 export default function ProductDetails() {
   const { id } = useParams<{ id: string }>();
@@ -10,10 +11,11 @@ export default function ProductDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
+  const { addItem } = useCart();
 
   useEffect(() => {
     let mounted = true;
-    productApi.get(productId).then((res) => {
+    productApi.get(productId).then((res: { data?: ProductWithBatches; error?: string }) => {
       if (!mounted) return;
       if (res.error) {
         setError(res.error);
@@ -54,9 +56,9 @@ export default function ProductDetails() {
     );
   }
 
-  const batches: Batch[] = product.batches;
+  const batches: Batch[] = product.batches || [];
   const totalAvailable = batches.reduce((sum, b) => sum + b.availableStock, 0);
-  const maxQty = Math.min(totalAvailable, 10);
+  const maxQty = Math.max(1, Math.min(totalAvailable, 10));
   const inStock = totalAvailable > 0;
 
   return (
@@ -98,50 +100,46 @@ export default function ProductDetails() {
           </div>
 
           <div className="bg-white rounded-xl border border-navy-100 p-6 shadow-sm">
-            <h3 className="text-navy font-bold text-lg mb-3">Description</h3>
+            <h2 className="text-navy font-bold text-lg mb-3">Description</h2>
             <p className="text-navy-600 text-sm leading-relaxed">{product.description}</p>
           </div>
 
           <div className="bg-white rounded-xl border border-navy-100 p-6 shadow-sm">
-            <h3 className="text-navy font-bold text-lg mb-3">Available Batches</h3>
-            <div className="space-y-2">
-              {batches.map((b: Batch) => (
-                <div key={b.id} className="flex justify-between items-center p-3 bg-soft-grey rounded-lg text-sm">
-                  <span className="text-navy-700">Batch #{b.id}</span>
-                  <div className="text-right">
-                    <div className="text-navy-600">Expires: {b.expiryDate}</div>
-                    <div className="text-teal font-bold">Available: {b.availableStock}</div>
-                  </div>
-                </div>
-              ))}
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-navy font-medium">Availability:</span>
+              <span className={`font-bold ${inStock ? 'text-green-600' : 'text-red-600'}`}>
+                {inStock ? `${totalAvailable} in stock` : 'Out of Stock'}
+              </span>
             </div>
-          </div>
 
-          <div className="bg-white rounded-xl border border-navy-100 p-6 shadow-sm">
-            <div className="flex items-center gap-4">
-              <label className="text-navy font-medium">Quantity:</label>
-              <select
-                value={quantity}
-                onChange={(e) => setQuantity(Math.min(parseInt(e.target.value, 10), maxQty || 1))}
-                className="px-3 py-2 rounded bg-white border border-navy-200 text-navy"
-                disabled={!inStock}
-              >
-                {[...Array(maxQty || 1)].map((_, i) => i + 1).map((q) => (
-                  <option key={q} value={q}>
-                    {q}
-                  </option>
-                ))}
-              </select>
-            </div>
-            {!inStock ? (
-              <button className="w-full bg-navy-200 text-navy-500 py-3 rounded-lg font-bold text-lg cursor-not-allowed">
-                Out of Stock
-              </button>
-            ) : (
-              <button className="w-full teal bg-teal text-white py-3 rounded-lg font-bold text-lg hover:bg-teal-900 transition">
-                Add to Cart
-              </button>
+            {inStock && (
+              <div className="flex items-center gap-4 mb-4">
+                <label className="text-navy font-medium">Quantity:</label>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                    className="w-8 h-8 rounded border border-navy-200 hover:bg-navy-50"
+                  >
+                    −
+                  </button>
+                  <span className="font-bold text-navy w-8 text-center">{quantity}</span>
+                  <button
+                    onClick={() => setQuantity((q) => Math.min(maxQty, q + 1))}
+                    className="w-8 h-8 rounded border border-navy-200 hover:bg-navy-50"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
             )}
+
+            <button
+              onClick={() => addItem(product, quantity)}
+              disabled={!inStock}
+              className="w-full teal bg-teal text-white py-3 rounded-lg font-bold text-lg hover:bg-teal-900 transition disabled:opacity-50"
+            >
+              Add to Cart
+            </button>
           </div>
         </div>
       </div>

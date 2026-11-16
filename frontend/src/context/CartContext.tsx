@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useCallback, useEffect } from 'react';
-import { CartItem, Product } from '../services/api';
+import type { CartItem, Product } from '../services/api';
 
 interface CartContextType {
   items: CartItem[];
@@ -16,7 +16,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
 
   useEffect(() => {
     try {

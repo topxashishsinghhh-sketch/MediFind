@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCart } from '@/context/CartContext';
-import { productApi, ProductWithBatches } from '@/services/api';
+import { useCart } from '../context/CartContext';
+import { productApi } from '../services/api';
+import type { ProductWithBatches, CartItem, Batch } from '../services/api';
 
 export default function Cart() {
-  const { items, updateQuantity, removeItem, clear, itemCount } = useCart();
+  const { items, updateQuantity, removeItem, itemCount } = useCart();
   const navigate = useNavigate();
   const [productDetails, setProductDetails] = useState<Map<number, ProductWithBatches>>(new Map());
   const [loading, setLoading] = useState(false);
@@ -25,7 +26,7 @@ export default function Cart() {
   }, [items]);
 
   const subtotal = Array.from(productDetails.entries()).reduce((sum, [pid, p]) => {
-    const item = items.find((i) => i.productId === pid);
+    const item = items.find((i: CartItem) => i.productId === pid);
     const price = p.batches?.[0]?.sellingPrice ?? 0;
     return sum + price * (item?.quantity ?? 0);
   }, 0);
@@ -68,11 +69,11 @@ export default function Cart() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
           <div className="space-y-4">
-            {items.map((item) => {
+            {items.map((item: CartItem) => {
               const product = productDetails.get(item.productId);
               if (!product) return null;
               const price = product.batches?.[0]?.sellingPrice ?? 0;
-              const inStock = product.batches?.some((b) => b.availableStock > 0) ?? false;
+              const inStock = product.batches?.some((b: Batch) => b.availableStock > 0) ?? false;
               return (
                 <div key={item.productId} className="bg-white rounded-xl border border-navy-100 p-4 flex gap-4 shadow-sm">
                   <div className="w-20 h-20 bg-soft-grey rounded-lg flex-shrink-0 flex items-center justify-center">

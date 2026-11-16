@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { productApi, Product } from '@/services/api';
-import { useCart } from '@/context/CartContext';
+import { productApi } from '../services/api';
+import type { Product } from '../services/api';
+import { useCart } from '../context/CartContext';
 
 type Tab = 'medicines' | 'healthcare';
 
-export default function Catalogue({ type }: { type: Tab }) {
+export default function Catalogue({ type = 'medicines' }: { type?: Tab }) {
   const [tab, setTab] = useState<Tab>(type);
   const [search, setSearch] = useState('');
   const [products, setProducts] = useState<Product[]>([]);
@@ -15,7 +16,7 @@ export default function Catalogue({ type }: { type: Tab }) {
 
   useEffect(() => {
     let mounted = true;
-    productApi.list({ category: tab }).then((res) => {
+    productApi.list({ category: tab }).then((res: { data?: Product[]; error?: string }) => {
       if (!mounted) return;
       if (res.error) {
         setError(res.error);
@@ -83,15 +84,12 @@ export default function Catalogue({ type }: { type: Tab }) {
     return (
       <div className="p-4 text-center py-12">
         <p className="text-red-600 text-lg">{error}</p>
-        <button onClick={() => window.location.reload()} className="mt-4 teal bg-teal text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-teal-900 transition">
-          Retry
-        </button>
       </div>
     );
   }
 
   return (
-    <div className="p-4">
+    <div className="p-4 max-w-7xl mx-auto">
       <div className="flex flex-col md:flex-row justify-between items-end gap-4 mb-6">
         <div>
           <h1 className="text-2xl font-bold text-navy">{tab === 'medicines' ? 'Medicines' : 'Healthcare Products'}</h1>
@@ -125,57 +123,42 @@ export default function Catalogue({ type }: { type: Tab }) {
         </button>
       </div>
 
-      {filtered.length === 0 ? (
-        <div className="text-center py-12">
-          <p className="text-navy-500 text-lg">No products found</p>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {filtered.map((p) => (
-            <div
-              key={p.id}
-              className="bg-white rounded-xl border border-navy-100 p-4 shadow-sm hover:shadow-md transition"
-            >
-              <div className="h-32 bg-soft-grey rounded-lg mb-3 flex items-center justify-center relative">
-                <img
-                  src={p.imageUrl}
-                  alt={p.name}
-                  className="max-h-full max-w-full object-contain"
-                />
-                <span
-                  className={`absolute top-2 left-2 px-2 py-1 rounded text-xs font-bold ${
-                    p.prescriptionRequired ? 'bg-navy text-white' : 'bg-teal text-white'
-                  }`}
-                >
-                  {p.prescriptionRequired ? 'Prescription Required' : 'OTC'}
-                </span>
-              </div>
-              <h3 className="text-navy font-bold text-sm mb-1 line-clamp-2">{p.name}</h3>
-              <p className="text-navy-600 text-xs mb-2">{p.brand}</p>
-              <div className="flex justify-between items-baseline mb-3">
-                <span className="teal font-bold">₹0.00</span>
-                <span className="text-xs font-medium px-2 py-0.5 rounded bg-green-100 text-green-700">
-                  In Stock
-                </span>
-              </div>
-              <div className="flex gap-2 mt-3">
-                <button
-                  onClick={() => addItem(p)}
-                  className="flex-1 teal bg-teal text-white py-2 rounded-lg text-sm font-medium hover:bg-teal-900 transition"
-                >
-                  Add to Cart
-                </button>
-                <Link
-                  to={`/products/${p.id}`}
-                  className="flex-1 text-navy-600 py-2 rounded-lg border border-navy-200 text-sm font-medium text-center hover:bg-navy-50 transition"
-                >
-                  View Details
-                </Link>
-              </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {filtered.map((product) => (
+          <div key={product.id} className="bg-white rounded-xl border border-navy-100 p-4 shadow-sm hover:shadow-md transition">
+            <div className="h-40 bg-soft-grey rounded-lg mb-3 flex items-center justify-center">
+              <img
+                src={product.imageUrl}
+                alt={product.name}
+                className="max-h-full max-w-full object-contain"
+              />
             </div>
-          ))}
-        </div>
-      )}
+            <span
+              className={`inline-block px-2 py-0.5 rounded text-xs font-bold mb-2 ${
+                product.prescriptionRequired ? 'bg-navy text-white' : 'bg-teal text-white'
+              }`}
+            >
+              {product.prescriptionRequired ? 'Rx Required' : 'OTC'}
+            </span>
+            <h3 className="text-navy font-bold text-sm mb-1">{product.name}</h3>
+            <p className="text-navy-500 text-xs mb-3">{product.brand} • {product.manufacturer}</p>
+            <div className="flex justify-between items-center mt-auto">
+              <Link
+                to={`/products/${product.id}`}
+                className="text-teal text-sm font-medium underline hover:text-teal-900"
+              >
+                Details
+              </Link>
+              <button
+                onClick={() => addItem(product, 1)}
+                className="teal bg-teal text-white px-3 py-1 rounded text-sm font-medium hover:bg-teal-900 transition"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

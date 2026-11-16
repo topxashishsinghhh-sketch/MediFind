@@ -10,7 +10,8 @@
 }
 
 html {
-  @apply text-navy-800 bg-soft-grey;
+  color: var(--color-navy);
+  background: var(--color-soft-grey);
 }
 
 body {
